@@ -1,0 +1,21 @@
+"""If we list all the natural numbers below 10 that are multiples of 3 or 5, we get 3, 5, 6 and 9. The sum of these multiples is 23.
+
+Find the sum of all the multiples of 3 or 5 below 1000.""""
+
+Approach:
+
+Below 10, the natural numbers that are below 10 that are multiples of 3 or 5 are 3,5,6,9 and then 3+5+6+9 = 23
+
+the way it would work is that a loop would go over the numbers from 1 to 10 both inclusive so essentially we need to have a range(1,11, step =1) 
+and find if each number modulo 3 or modulo 5 is equal to zero or not. We collect the numbers in a separate list and sum the list ( or rather
+apply a built in function called sum)
+
+Use a simple List comprehension to solve this problem
+
+N = 1000
+LC = [item for item in range(1000) if item%3 == 0 or item%5 == 0]
+sum = sum(LC)
+
+In this case the correct answer is 233168
+
+# of course there are also more elaborate code available in the for m of functions but when we think of pythonic beauty thats the way to go.
