@@ -1,0 +1,30 @@
+The sum of the squares of the first ten natural numbers is,
+
+1^2 + 2^2 + ... + 10^2 = 385
+The square of the sum of the first ten natural numbers is,
+
+(1 + 2 + ... + 10)2 = 55^2 = 3025
+Hence the difference between the sum of the squares of the first ten natural numbers and the square of the sum is 3025 − 385 = 2640.
+
+Find the difference between the sum of the squares of the first one hundred natural numbers and the square of the sum.
+
+# Problem 6 from the Euler Archive
+
+Approach:
+
+Basically it boils down to having two formulas one for the sum of the squares and one for the square of the sum which is larger.
+
+Lets have two functions now :
+
+def sum_of_squares(N):
+    s1 = [N*N*(N+1)*(N+1)]/4
+    return s1                           # A function to return sum of squares of the first N natural numbers
+    
+def squares_of_sums(N):
+    s2 = [N*(N+1)*(2N+1)]/6
+    return s2                            # A function to return squares of the sums of the first N natural numbers
+    
+def difference(s1,s2):
+    return s2-s1                        # return the difference of the numbers
+    
+    
