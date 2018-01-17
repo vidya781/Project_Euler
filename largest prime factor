@@ -1,0 +1,27 @@
+"""The prime factors of 13195 are 5, 7, 13 and 29.
+
+What is the largest prime factor of the number 600851475143 ?"""
+
+# Problem Number 3 from project Euler
+
+Approach :
+
+1) Generate the prime factors of the number is question
+2) Put them in a separate list
+3) Get the maximum of that list
+
+def generatePrimefactors(N=13195):
+    i = 2
+    factors = []
+    while i * i <= n:
+        if n % i:
+            i += 1
+        else:
+            n //= i
+            factors.append(i)
+    if n > 1:
+        factors.append(n)
+    return factors
+    
+def getmaxfactor(generatePrimefactors):
+    return max(factors)
