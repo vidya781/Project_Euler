@@ -25,6 +25,19 @@ Find the thirteen adjacent digits in the 1000-digit number that have the greates
 
 # This is problem 8 from Project Euler
 
+Error scenarios: In this problem, I had the Indexerror show up
+
+raceback (most recent call last):
+  File "<pyshell#41>", line 1, in <module>
+    getmaxprodof13(int_list)
+  File "C:/Users/shankar/Desktop/MaxProd.py", line 8, in getmaxprodof13
+    prod = (int_list[i])*(int_list[i+1])*(int_list[i+2])*(int_list[i+3])*(int_list[i+4])*(int_list[i+5])*(int_list[i+6])*(int_list[i+7])*(int_list[i+8])*(int_list[i+9])*(int_list[i+10])*(int_list[i+11])*(int_list[i+12])*(int_list[i+13])
+IndexError: list index out of range
+
+The reason I had this error is that as products of 13 adjacent lists keep getting formed, what essentially happens is that size of teh list gets reduced.
+Hence one gets the IndexError. You could use a LC to bypass this error.
+
+
 Approach:
 
 Its possible that the length of 13 was arbitrarily chosen, so we need to have a general way of representing such numerical lengths. We can define a
