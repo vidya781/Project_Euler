@@ -1,0 +1,20 @@
+
+
+upper_limit = 1000        # User defined number
+def findPythtriplets(upper_limit):
+    c = 0
+    m = 2
+    while(c < upper_limit):             # Our goal is to find Pythagorean triplets set the hypotenuse less than upper limit
+        for n in range(1,m+1):          # Euclids laws for determining the triplets
+            a = m*m-n*n
+            b = 2*m*n
+            c = m*m+n*n
+            
+            if(c>upper_limit):             # checkin for the edge cases
+                break
+            if(a==0 or b==0 or c==0):
+                break
+            print(a,b,c)
+        m = m+1
+        
+        # As a special case a+b+c = 1000 is genertaed by 375,200,425 ( Pythagorean triplet)
