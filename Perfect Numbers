@@ -1,0 +1,47 @@
+
+""" A python program to tell if a number is perfect or not and to generate all perfect numbers within a certain number N"""
+
+6 is a perfect number because a perfect number is equal to the sum of its factors like 2,3,1 as 1 + 2 + 3 = 6 
+
+28 (1,2,4,7,14) 1+2+4+7+14 = 28
+
+Perfect_numbers = [x for x in xrange(1,10001) if sum(y for y in xrange(1,x) if x%y==0)==x]
+
+""" What does the above LC (short for list comprehension) generate? we declare a for loop that loops through each element in the range(1,10001) and
+checks if the sum of the factors of every number is equal to the number itself
+The loop starts at one ie x == 1 and y == 1 and 1%1 == 0 and so factors of 1 are 1 and now for x = 2 whose factors are 1,2  1+2 = 3 != 2 and the condition is nulled
+and the loop continues till it finds an x which satisfies the given condition
+
+
+
+n = 6     # Initialize the number to find if its perfect or not
+L = [ ]   # Initialize an empty list to hold the factors of a given number
+def isperfect(n):
+    for i in range(1,n):     # Iterate through the numbers in range upto n
+        if n%i == 0:         # Check for the condition to hold
+            L.append(i)      # make the list
+            s = sum(L)       # get the sum of the list
+    if s == n:               # if sum is equal to n
+        return("Number is perfect")
+    else:
+        return("Number is not perfect")
+        
+        
+       
+n = 10000
+import math
+
+def solve():
+    for num in range(2,n):
+        ans,div = 1,2
+        while(div*div<num):
+            if(num%div)==0:
+                ans+=div+num//div
+            div+=1
+        if(ans==num):
+            print(num)
+
+
+
+          
+    
