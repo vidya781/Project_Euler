@@ -141,9 +141,157 @@ Possible values of a,b,c       Permutations
 Hence the total number of such numbers = 1 + 3 + 3 + 3 + 6 + 6 + 3 = 28.This method is more convincing than the BF manual approach and
 is less error prone. It seems plausible that one number has been missed out in the manual approach but the point was to inherently draw parallels
 between a computational procedure and a manual thought process approaching the same problem.
- The parts where the computer would spend a lot of time ( bottleneck time scales) and a human would find it very easy and vice versa.
- So AI procedures must always be used with a human touch to it for faster evolution. A combinatoric procedure works best really.
+The parts where the computer would spend a lot of time ( bottleneck time scales) and a human would find it very easy and vice versa.
+So AI procedures must always be used with a human touch to it for faster evolution. A combinatoric procedure works best really.
  
  
+The actual tested code is as follows:
+
+import time
+start = time.process_time()
+
+Upper_Bound = 1000
+
+L = list(range(1,Upper_Bound+1))  # generating the list which will be worked upon
+
+def getdigits(L):
+    """This function serves to generate the individual lists of digits in the range specified"""
+    D = []    # have a separate list to hold the digit lists
+    for item in L:
+        D.append([int(d)for d in str(item)])
+    return D
+ 
+func1 = getdigits(L)
+       
+# At this point we have the entire list in terms of its individual digits
+
+# Now we need to filter out based on 2 conditions: divisibility by 3 as well
+# divisibility by 7, that is divisibility by 21 
+# So essentially what we have to do is loop through the entire list
+# 
+
+def getcount(func1):
+    """This function serves to generate the count of the numbers that we wanted, satifying the 
+    given condition, in this case the sum of the digits being divisible by 7 and the number itself
+    being divisible by 3, in short the sum of the digits being divisible by 21"""
+    C = []
+    for item in func1:
+        if sum(item) % 21 == 0:
+            C.append(item)
+    return C
+
+print(len(getcount(func1)))  # we just need to know how many numbers in the given range satisfy this property
+
+end = time.process_time()
+print(end - start)
+
+The time here that elapsed for the execution of this program is 0.00258 seconds.
+
+Now in order to analyse the time complexity and the efficiency aspects, it's worth segregating the functions and then testing
+it out.
+
+import time
+start = time.process_time()
+
+Upper_Bound = 1000
+L = list(range(1,Upper_Bound+1)) # generating the list which will be worked upon
+
+def getdivisiblebythree(L):
+    list_div_by_three = []  # hold all numbers in the list which are divisible by three
+    for i in L:
+        if i%3 == 0:
+            list_div_by_three.append(i)
+    return list_div_by_three   
+
+func1 = getdivisiblebythree(L)
+
+### At this point we have numbers in the range which are themselves divisble by three
+### We need to filter this list by testing for digit sums divisible by 7
+
+def getindividuallists(func1):
+    L = []  
+    for item in func1:
+        L.append([int(d) for d in str(item)])
+    return L
+
+func2 = getindividuallists(func1)
+
+def getdivisiblebyseven(func2):
+    D = []
+    for entity in func2:
+        D.append(sum(entity))
+    return D
+
+func3 = getdivisiblebyseven(func2)
+
+def getcountfinal(func3):
+    count = 0
+    for j in func3:
+        if j%7 == 0:
+            count+= 1
+    return count
+
+func4 = getcountfinal(func3)
+print(func4)
+
+end = time.process_time()
+print(end - start)
+
+The above piece of code took 0.001735999 seconds which is faster than the previous code where two conditions were combined into
+one. This is an indication that segregating functions might be beneficial in the long run.In the above case, what was essentially
+done was to get the numbers divisible by 3 in the range, then testing for divisibility of digit sums of these by 7.
+
+It might be worth getting the digit sums first divisible by 7 and finally filtering out these and testing for divisibilty of the
+numbers by 3 finally.
+
+import time
+start = time.process_time()
+
+Upper_bound = 1000
+L = list(range(1,Upper_bound + 1))  # generating the list which will be worked on
+
+def generatelistdigits(L):
+    D = []  ### this list will hold the lists of digits
+    for item in L:
+        D.append([int(d) for d in str(item)])
+    return D
+
+func1 = generatelistdigits(L) ### At this point we have the list of lists
+
+def generatesums(func1):  ###
+    Sums = []
+    for lists in func1:
+        Sums.append(sum(lists))
+    return Sums
+
+func2 = generatesums(func1)   #### At this point we have the sum of the individual lists
+
+def filterfordivbyseven(func2):
+    sevens = []
+    for j in func2:
+        if j % 7 == 0:
+            sevens.append(j)
+    return sevens           ### tested for divisibility by 7 at this point and collected
+
+func3 = filterfordivbyseven(func2)
+
+def filterfordivbythree(func3):
+    count = 0
+    for num in func3:
+        if num % 3 == 0:
+            count += 1
+    return count          ### Individual numbers further filtered for divisibility by 3
+
+func4 = filterfordivbythree(func3)
+print(func4)
+
+end = time.process_time()
+print(end - start)     # Time of execution noted
+    
+In the final case, we have the time of execution as 0.003248 seconds. So this process of generating the sums first , then filtering
+for divisibility for 7, followed by sequential filtration for divisibilty of the individual numbers by three takes the longest
+time on preliminary investigation.
 
 
+ 
+ 
