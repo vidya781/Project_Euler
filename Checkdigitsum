@@ -110,6 +110,40 @@ calculate the number of such numbers given a specific Upper Bound ( UB). In this
 Some additional points where the human mind is capable of a discerning search is the lack of such numbers in the early ranges and the number of such numbers
 increasing slowly and in some cases being identical ( two times 5 obtained).
 
+The above was still a BF manual method.
 
+The elegant method is as follows:
+
+Let the number be abc. We have a + b + c = 7k ( sum of digits being divisible by 7)
+Also, the number is divisible by 3 , a + b + c = 3m
+So a + b + c is divisible by 21
+Now each of a,b and c can take values from 0 to 9 and hence a + b + c >= 0 but <= 27 and combining both these constraints,
+we are led to believe that a + b + c = 21 only.
+
+So lets formulate a table
+
+Possible values of a,b,c       Permutations
+-----------------------       --------------
+9    9    3                     3!/2! = 3
+
+9    8    4                     3! = 6   ( no repetition of digits here)
+
+9    7    5                     3! = 6  ( no repetition here as well)
+
+9    6    6                     3!/2! = 3
+
+8    8    5                     3!/2! = 3
+
+8    7    6                     3!/2! = 3
+
+7    7    7                      3!/3! = 1 
+
+Hence the total number of such numbers = 1 + 3 + 3 + 3 + 6 + 6 + 3 = 28.This method is more convincing than the BF manual approach and
+is less error prone. It seems plausible that one number has been missed out in the manual approach but the point was to inherently draw parallels
+between a computational procedure and a manual thought process approaching the same problem.
+ The parts where the computer would spend a lot of time ( bottleneck time scales) and a human would find it very easy and vice versa.
+ So AI procedures must always be used with a human touch to it for faster evolution. A combinatoric procedure works best really.
+ 
+ 
 
 
