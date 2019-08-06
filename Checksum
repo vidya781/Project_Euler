@@ -15,14 +15,14 @@ of being divisible by 3 fails.
 We would be well served by taking a filter based approach. 
 1) Find out all the numbers that are divisible by 3 till the upper bound and collect them in a list.
 2) Take the digit sum of all such numbers and then make a different list.
-3) Check if each of these entries is 0 ( mod 7) and increment the count if they are.
+3) Check if each of these entries is 0 (mod 7) and increment the count if they are.
 
 This is one of those cases where it may be computationally easier to solve the problem rather than work it out mathematically.
 Nevertheless, we take the first interval of 2 digit numbers and start from 99, decrementing the units place 99, 89,79,69,59,49,39,29,19,09 and noting
 the digit sums as 18,17,16,15,14,13,12,11,10, 9 and of which only one 59 is the candidate but fails to pass the other condition for divisibility by 3.
 Hence ruled out. 
 Next we take 98,88,78,68,58,48,38,28,18,08 ( by applying the same logic as before) The digit sums are 17,16,15,14,( ignore the rest as anything less
-than 14 may not yield to the divisibility of 7 in the 2 digit range..we are not goinga ll the way till 7 here). 68 is not divisible by 
+than 14 may not yield to the divisibility of 7 in the 2 digit range..we are not going all the way till 7 here). 68 is not divisible by 
 3 , hence the second condition fails.
 
 This teaches us one important thing in the filtering approach: the order of priorities : It is better we find the numbers in the range which are
@@ -35,7 +35,7 @@ listdivbythree= []  # declaring an empty list
 
 def getnumbersdivby3(UB):
     for i in range(3,UB+1):
-        if i % 3 == 0:
+        if i % 3 == 0:             # checking for divisibility by 3
            listdivbythree.append(i)
     return listdivbythree     # returning the populated list for which the condition holds good
     
@@ -44,4 +44,72 @@ print (getnumbersdivby3(UB))
 # Now the filtering process begins
 
 digitsums = []   # declare an empty list that will hold the digit sums
+
+def getdigitsums(listdivbythree):
+    for entity in listdivbythree:
+        digitsums.append(sum[int(d) for d in str(entity)]) # populating the digitsums list
+    return digitsums
+    
+def getcountofrequired(digitsums):
+    count = 0
+    for item in digitsums:
+         if item % 7 == 0:  # checking for divisibility by 7
+             count+= 1
+    return count        # returning the count variable to get the actual count
+
+print(getcountofrequired(digitsums))
+
+This sequential filtering process will ensure the process is computationally a lot faster. We could actually identify the time difference 
+by coding the steps in a different way by using the timeit module. The difference will become significant even orders of magnitude more if 
+the priority is taken into consideration.( This will depend on the UB as well.)
+
+However we are yet to figure out an elegant math approach to the problem.
+
+So we start from the reverse writing out numbers in the range (900,1000) and checking if the digit sums are 0 mod 7.
+
+900, 903,906,909,....999
+In this range 939,948,957,966,975,984 and 993 have digit sums of 21 which is 0 mod 7 and these numbers are also divisible themselves by 3. Hence 
+we start collecting the count of numbers in this range R1 --{ 7}  # the count there is of the numbers satisfying the desired condition.
+
+The aim was to find out if there are any patterns or symmetry appearing in this sea of numbers so that the process could be mathematically simplified
+but there do not appear to be any periodicity occuring out here in order to forge a concrete conclusion.
+
+So piecing out the ranges seems to be the best approach really until a significant insight comes through.
+
+801,804,...898 and the count of numbers in this range is R2 --{ 5 }
+
+We start the next range R3 from 702,705,....798 and the count is ---{ 5 }
+
+At this point it seems there could be a pattern emerging but we need to hold on. R2 and R3 being 5 each respectively may be pure chance or randonmess 
+operating.
+
+600,603,609....699 and R4 yields ---{ 4 } 
+
+On to R5 then 501,504,507,510,...597 ----{ 3 }. At this point all we can say is that there is no apparent pattern or symmetry but this
+needs to be explored further. But one thing is clear. In a range spanning 33 numbers or so, the second half of the range has the numbers that
+meet the desired condition.
+
+In R6 which spans the range 402,405,408,..497 the count is R6----> {2} > A computer wouldnt have cognition of this fact but brutely make the count. The discerning mind comes in here.[ An interesing 
+side track: Can a computer be endowed with discretion and discernment here?]
+
+
+In R7, from 300,303,306,...399 There is only one number R7----> { 1 }
+
+Can we expect some more numbers in this range from 201,204,207,....300. No numbers n this range have a digit sum of 14 or 21. Hence R8 ---{0} the empty set
+
+For generating R9 ( if any ) we consider the penultimate range 102,105,108,....201
+R9---{0} No numbers have a digit sum which mod 7 = 0.
+
+R10 3,6,9,....99 No numbers have a digit sum which mod7 = 0 , hence R10----{ 0 }
+
+Sigma R(i) i ranging from 10 to 1 = 0 + 0 + 0 + 1 + 2 + 3 + 4 + 5 + 5 + 7 = 27 
+
+Thus by a manual calculation observing some trends like the digit sum not summing upto a unit ( which mod 7 would have to be zero), one can quickly
+calculate the number of such numbers given a specific Upper Bound ( UB). In this case it is 27. 
+
+Some additional points where the human mind is capable of a discerning search is the lack of such numbers in the early ranges and the number of such numbers
+increasing slowly and in some cases being identical ( two times 5 obtained).
+
+
+
 
