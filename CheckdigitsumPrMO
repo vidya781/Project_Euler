@@ -292,6 +292,68 @@ In the final case, we have the time of execution as 0.003248 seconds. So this pr
 for divisibility for 7, followed by sequential filtration for divisibilty of the individual numbers by three takes the longest
 time on preliminary investigation.
 
+Equivalent Java Code is as follows:
 
+We straightaway proceed to check for divisibility by 21. 
+
+import java.io.*;
+
+class checkfordivby21{
+    // function to count the numbers divisible by M in a given range
+    static int countDivisibles(int A, int B, int M)
+       {
+          // Variable to store the counter
+           int counter = 0;
+           
+           // Running a loop from A to B and check if a number is divisible by M
+           
+           for(int i = A; i <= B; i++)
+              if( i % M == 0)
+                 counter++;
+           return counter;
+        }
+        //driver program
+        
+        public static void main(String[] args)
+         {
+            // A and B define the range, M the dividend
+            int A = 1, B = 1000, M = 21;
+            System.out.println(countDivisibles(A,B,M);
+         }
+    }
+   
+   // Alternative Java program which is faster
+   
+   import java.io.*;
+   
+   class divby21{
+     // Function to count the numbers divisible by M in a given range
+     
+     static int countDivisibles2(int A, int B, int M)
+     {
+        // Add 1 explicitly as A is divisible by M
+        
+        if(A % M == 0)
+           return (B/M) - (A/M) + 1;
+           
+       // A is not divisible by M
+      return(B/M) - (A/M);
+     }
+     
+     // driver program
+     public static void main(String[] args)
+     {
+        // A and B define the range, M is the dividend
+        int A = 1, B = 1000, M = 21;
+        
+        // Printing the result
+        System.out.println(countDivisibles2(A,B,M));
+     }
+  }
+  
+  
+   
+   
+         
  
  
