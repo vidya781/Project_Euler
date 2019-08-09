@@ -29,7 +29,7 @@ import pandas as pd
 
 # construct the desired polynomial: in the present case it is S(n) = n**2 + 20*n + 12
 
-p = np.poly1d([1,10,12])
+p = np.poly1d([1,20,12])
 
 def evalpoly(p):
     Poly_values = []    # empty list for storing the calculated values of the expression
@@ -112,10 +112,10 @@ The naive approach takes an addition, a multiplication, and an exponentiation fo
 Horner’s formula takes just a multiplication and an addition for each degree. Thus it would be much faster.
 
 The grand aim for AI would be to develop an 'Intuiter', an analog for the Intuition developed by a computer that takes
-a 'gut' call based on some learning experience ( which of course should be mathematically formulable) to randomly zero in
-on a range where it has the possibility of finding a perfect square and given the negation of any correct values ( for perfect
-squares that is ) in that range , have the ability to take another 'gut' call on another range and zero in on one that meets the
-criterion. That, in my opinion, would be a very interesting proposition really.
+a 'gut' call based on some learning experience ( which of course should be mathematically formulable given the present limits of computation) 
+to randomly zero inon a range where it has the possibility of finding a perfect square and given the negation of any correct values 
+(for perfectsquares that is ) in that range , have the ability to take another 'gut' call on another range and zero in on one that 
+meets thecriterion. That, in my opinion, would be a very interesting proposition really.
 
 
         
