@@ -1,0 +1,125 @@
+In my attempt to computationally solve the perfect squares problem: That is, given a particular polynomial find out values of that polynomial
+that are a perfect square and sum those values of n
+
+For example: consider the expression S(n) = n^2 + 20n + 12
+
+Typically a computer should compute the values for a particular range and then the testing for perfect squares begins. 
+So we break the problem into 3 parts:
+1) For a given range evaluate the value of the expression S(n) at every point in the range ( Integer values only )
+2) Check if each of these is a perfect square or not
+3) If so, add the values of n for which they are.
+
+We note some points out here: 
+
+We contrast some approaches for evaluating the value of the expression or the polynomial S(n) at specific points.
+Consider numpy.polyval() in Python
+If 'N' is the length of a polynomial 'p',then this function returns the value:p[0]*x**(N-1)+p[1]*x**(N-2)+...+p[N-2]*x + p[N-1]
+Parameters : 
+p : [array_like or poly1D] polynomial coefficients are given in decreasing order of powers. If the second parameter (root) is set to True then array values are the roots of the polynomial equation.
+For example : poly1d(3, 2, 6) = 3x2 + 2x + 6
+
+x : [array_like or poly1D] A number, an array of numbers, for evaluating ‘p’.
+
+Return: Evaluated value of polynomial.
+
+So we could write a function:
+
+import numpy as np
+import pandas as pd
+
+# construct the desired polynomial: in the present case it is S(n) = n**2 + 20*n + 12
+
+p = np.poly1d([1,10,12])
+
+def evalpoly(p):
+    Poly_values = []    # empty list for storing the calculated values of the expression
+    for i in range(1,101):    # specify a desired range here
+          Poly_values.append(p(i))
+    return Poly_values
+    
+func1 = evalpoly(p)   # returns the list of Poly_values evaluated at every integer point in the range specified above
+
+#Now that we have a list, we need to evaluate whether each value of the list is a perfect square or not
+
+import math
+def checkperfectsquare(func1):
+    roots = []     # we need a list to hold the square roots of the corresponding numbers in func1
+    Perfectsquares = []  # need a list to hold the perfect squares if the condition downstream holds true
+    Trues_and_Falses = []
+    
+    for entity in func1:
+        roots.append(math.sqrt(entity))
+    return roots      # at this point we have a list of the roots of each of the numbers of func1
+    
+    for number in roots:
+        for entity in func1:
+             if int(number + 0.5)**2 == entity:
+                 Perfectsquares.append(entity)
+                 Trues_and_Falses.append(1)
+             else:
+                 Trues_and_Falses.append(0)
+    return Perfectsquares, Trues_and_Falses
+
+# Now that we have the perfect squares stored in a list we need to work back and find the n for which this is true
+# The above function returns also the Boolean populated list of 1's and 0's
+
+# So now we need to create a mapping between the boolean list of 1's and 0's to the i in the range(1,101) and we are done
+
+# It need not be this complicated apparently: 
+
+We reason that since it is sequential, the place in the index at which the 1 appears in the boolean list + 1 is the correct index and 
+hence the correct value of n for which the perfectsquare condition is true
+
+def sumofbooleanindices(Trues_and_Falses):  # this function takes as its input the boolean list
+    sum_of_n = 0
+    for j in Trues_and_Falses:
+        if j == 1:
+           sum_of_n += Trues_and_Falses.index(j) + 1  # using the index method for obtaining the relevant indices
+    return sum_of_n
+    
+ func2 = sumofbooleanindices(Trues_and_Falses)
+ 
+ print(func2)
+ 
+ Thus the above prototype of the program should work to provide the sums of n's of even complex polynomial expressions whose individual
+ values evaluated at every integer point in a range is a perfect square.
+ 
+ We also note some finer points in the evaluation of a polynomial from the perspective of economy of computing:
+ 
+ When we need to evaluate a polynomial f(x), defined by its coefficients (c[0]+c[1] x x+c[2] x x2+...), at a given point x. There is an obvious (naive) approach to this, 
+ applying the polynomial’s definition directly:
+
+def poly_naive(x, coeff):
+    result = coeff[0]
+    for i in range(1, len(coeff)):
+        result = result + coeff[i] * x**i
+    return result
+       
+However this is a substantial waste of a computational effort since raising to a particular power is computationally expensive
+and time consuming.It is much better to use Horner's formula based on the simple observation that the polynomial can be differently
+written as c[0] + x *(c[1]+x*(c[2]+.... In other words, it can be written with nested parentheses but without raise to power operations,
+only additions and multiplications.
+
+Coding for this yields:
+
+def poly_horner(x,coeff):
+    res = coeff[-1]
+    for i in range(-2,-len(coeff)-1,-1):
+        res = res*x + coeff[i]
+    return res
+
+The naive approach takes an addition, a multiplication, and an exponentiation for each degree of the polynomial. 
+Horner’s formula takes just a multiplication and an addition for each degree. Thus it would be much faster.
+
+The grand aim for AI would be to develop an 'Intuiter', an analog for the Intuition developed by a computer that takes
+a 'gut' call based on some learning experience ( which of course should be mathematically formulable) to randomly zero in
+on a range where it has the possibility of finding a perfect square and given the negation of any correct values ( for perfect
+squares that is ) in that range , have the ability to take another 'gut' call on another range and zero in on one that meets the
+criterion. That, in my opinion, would be a very interesting proposition really.
+
+
+        
+       
+        
+    
+         
