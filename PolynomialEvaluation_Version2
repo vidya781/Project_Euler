@@ -1,0 +1,57 @@
+In continuing with my attempt to solve the polynomial evaluation of perfect squares and summing those values of n, the following is the 
+actual tested program in Python 3.6. This can be tried over a variety of ranges.
+
+import numpy as np
+import pandas as pd
+import time
+
+start = time.process_time()
+
+#construct the desired polynomial: in the present case it is S(n) = n**2 + 20*n + 12
+
+p = np.poly1d([1,20,12])
+
+def evalpoly(p):
+    Poly_values = []    # empty list for storing the calculated values of the expression
+    for i in range(1,2001):    # specify a desired range here
+        Poly_values.append(p(i))
+    return Poly_values  
+
+func1 = evalpoly(p)   # returns the list of Poly_values evaluated at every integer point in the range specified above
+
+#Now that we have a list, we need to evaluate whether each value of the list is a perfect square or not
+
+def getroots(func1):
+    import math
+    roots = []     # we need a list to hold the square roots of the corresponding numbers in func1
+    for entity in func1:
+        roots.append(math.sqrt(entity))
+    return roots      # at this point we have a list of the roots of each of the numbers of func1
+
+func2 = getroots(func1)
+#print(func2)
+
+def checkperfectsquares(func2):
+    Perfectsquares = [ ]
+    for number in func2:
+        for entity in func1:
+            if int(number + 0.5)**2 == entity:
+                Perfectsquares.append(entity)
+    return Perfectsquares          # checking for the perfect square condition 
+        
+func3 = checkperfectsquares(func2)             
+
+#print(func3)    # printing optional
+
+def getsum(func3):
+    required_sum = []
+    import math
+    for item in func3:
+        required_sum.append(math.sqrt(item))
+    return sum(required_sum)   # if the numbers from func3 are perfect squares and they are coz the condition has established, get roots and sum them
+
+func4 = getsum(func3)
+print(func4)
+
+end = time.process_time()
+print(end - start)
