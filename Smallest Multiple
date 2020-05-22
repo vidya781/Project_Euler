@@ -1,0 +1,26 @@
+2520 is the smallest number that can be divided by each of the numbers from 1 to 10 without any remainder.
+
+What is the smallest positive number that is evenly divisible by all of the numbers from 1 to 20?
+
+Solution:
+---------
+
+The factors of 2520 : 2520 = 252 X 10 
+                           = 126 X 2 X ( 2 X 5 ) 
+                           = 63 X 2 X 2 X (2 X 5)
+                           = 9 X 7 X 2 X 2 X ( 2 X 5 )
+                           = ( 3 X 3) X 7 X 2 X 2 X 2 X 5 
+                           = {1, 2, 2, 2, 3, 3, 5, 7}. ----->   (1)
+                           
+In order to find the smallest positive number that is evenly divisisble by all numbers from 1 to 20, we follow the procedure
+as outlined below:
+
+1] { 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20}
+
+The Prime factors in this set are {11,13,17,19 } so they have to be multiplied to 2520.
+
+All numbers from 11 to 20 should be accounted for through the above set (1) so 12, 14, 15,16 ( which can be accounted for 
+by incorporating an additional 2) .
+
+So 2520 X 11 X 13 X 17 X 19 X 2 = 232792560
+
