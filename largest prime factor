@@ -10,7 +10,7 @@ Approach :
 2) Put them in a separate list
 3) Get the maximum of that list
 
-def generatePrimefactors(N=600851475143):
+def generatePrimefactors(n=600851475143):
     i = 2
     factors = []
     while i * i <= n:
