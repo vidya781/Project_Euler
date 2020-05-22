@@ -1,0 +1,33 @@
+This is Problem 13 from the Project.
+
+Work out the first ten digits of the sum of the following one-hundred 50-digit numbers.
+
+One could store the numbers in a file and operate on this file.
+
+fh = open('LargeNumber.txt','r')
+all_lines = fh.readlines()
+fh.close()
+
+def remove_n(all_lines):       # as the name =>, removes trailing '\n'
+    res = [] 
+    for sub in all_lines:
+        res.append(sub.replace("\n",""))
+    return res
+
+new_list = remove_n(all_lines)
+
+def generatelist(new_list):
+    fresh_list =[]
+    for item in new_list:
+        fresh_list.append(int(item))
+    return fresh_list
+
+longlist = generatelist(new_list) # finetuning , and returning the numbers in a list 
+
+big_number = sum(longlist)  # summing the list of numbers
+
+# In order to extract the first 10 digits 
+
+extracted = int(str(big_number)[:10])
+
+print(extracted)
